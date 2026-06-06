@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.MatchesPage"
+             x:Name="PageRoot"
+             Title="Matches"
+             BackgroundColor="{StaticResource DarkBlue}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, *" Padding="28,24">
+
+        <!-- Header -->
+        <VerticalStackLayout Spacing="0" Margin="0,0,0,24">
+            <Label Text="MATCHES" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,4"/>
+            <Grid ColumnDefinitions="*, Auto">
+                <Label Text="Matches List" FontFamily="MontserratSemiBold" FontSize="30"
+                       TextColor="White" VerticalOptions="Center"/>
+                <Button Grid.Column="1" Text="+ New Match"
+                        FontFamily="MontserratSemiBold" FontSize="13"
+                        BackgroundColor="{StaticResource PrimaryOrange}"
+                        TextColor="White"
+                        Padding="18,0" HeightRequest="38" CornerRadius="8"
+                        VerticalOptions="Center"
+                        Command="{Binding GoToAddMatchPageCommand}"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- List -->
+        <RefreshView Grid.Row="1"
+                     Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.LoadMatchesCommand}">
+            <CollectionView ItemsSource="{Binding Matches}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding BindingContext.DeleteMatchCommand, Source={x:Reference PageRoot}}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Border BackgroundColor="White" Padding="18,14"
+                                    StrokeThickness="0" Stroke="Transparent">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="*, Auto">
+
+                                    <!-- Left: Match Info -->
+                                    <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                                        <Label Text="{Binding Opponent}"
+                                               FontFamily="MontserratSemiBold" FontSize="18"
+                                               TextColor="{StaticResource DarkGray}"/>
+                                        <Label Text="{Binding MatchDate, StringFormat='{0:dd.MM.yyyy}'}"
+                                               FontFamily="Montserrat" FontSize="13"
+                                               TextColor="{StaticResource Gray}"/>
+                                        <HorizontalStackLayout Spacing="6" Margin="0,4,0,0">
+                                            <Label Text="Score" FontFamily="Montserrat"
+                                                   TextColor="{StaticResource Gray}" FontSize="13"
+                                                   VerticalOptions="Center"/>
+                                            <Label Text="{Binding SetsWon}" FontFamily="MontserratSemiBold"
+                                                   TextColor="{StaticResource DarkOrange}" FontSize="15"/>
+                                            <Label Text=":" FontFamily="MontserratSemiBold"
+                                                   TextColor="{StaticResource Gray}" FontSize="15"/>
+                                            <Label Text="{Binding SetsLost}" FontFamily="MontserratSemiBold"
+                                                   TextColor="{StaticResource DarkOrange}" FontSize="15"/>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+
+                                    <!-- Right: Actions -->
+                                    <HorizontalStackLayout Grid.Column="1" Spacing="8"
+                                                           VerticalOptions="Center">
+                                        <Button Text="Detail"
+                                                FontFamily="MontserratSemiBold" FontSize="13"
+                                                BackgroundColor="{StaticResource PrimaryOrange}"
+                                                TextColor="White"
+                                                WidthRequest="90" HeightRequest="36" CornerRadius="8"
+                                                Command="{Binding BindingContext.ViewMatchCommand, Source={x:Reference PageRoot}}"
+                                                CommandParameter="{Binding .}"/>
+                                        <Button Text="Edit"
+                                                FontFamily="MontserratSemiBold" FontSize="13"
+                                                BackgroundColor="{StaticResource LightGray}"
+                                                TextColor="{StaticResource DarkGray}"
+                                                WidthRequest="75" HeightRequest="36" CornerRadius="8"
+                                                Command="{Binding BindingContext.EditMatchCommand, Source={x:Reference PageRoot}}"
+                                                CommandParameter="{Binding .}"/>
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+    </Grid>
+</ContentPage>

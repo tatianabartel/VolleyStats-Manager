@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="VolleyStats Manager/VolleyStatsManager.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+  <Project Path="VolleyStatsManager.DAL/VolleyStatsManager.DAL.csproj" />
+</Solution>

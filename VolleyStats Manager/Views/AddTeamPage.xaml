@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.AddTeamPage"
+             Title="Create Team"
+             BackgroundColor="{StaticResource DarkBlue}"
+             Shell.NavBarIsVisible="False">
+
+    <VerticalStackLayout Padding="28,0" Spacing="0"
+                         VerticalOptions="Center" MaximumWidthRequest="800">
+
+        <!-- Header -->
+        <Label Text="NEW TEAM" FontFamily="Montserrat" FontSize="12"
+               TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+               Margin="0,0,0,4"/>
+        <Label Text="Create your team" FontFamily="MontserratSemiBold" FontSize="30"
+               TextColor="White" Margin="0,0,0,32"/>
+
+        <!-- Team Name Card -->
+        <Border BackgroundColor="White" Padding="20,16" Margin="0,0,0,28"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="8">
+                <Label Text="TEAM NAME" FontFamily="MontserratSemiBold" FontSize="11"
+                       TextColor="{StaticResource AccentBlue}" CharacterSpacing="1.5"/>
+                <Entry Text="{Binding TeamName}"
+                       Placeholder="e.g. Tigers Bratislava A"
+                       PlaceholderColor="{StaticResource Gray}"
+                       BackgroundColor="Transparent"
+                       TextColor="{StaticResource DarkGray}"
+                       FontFamily="MontserratSemiBold"
+                       FontSize="18"/>
+                <BoxView HeightRequest="1.5" Color="{StaticResource LightGray}"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Action Buttons -->
+        <Grid ColumnDefinitions="*, *" ColumnSpacing="14">
+            <Button Grid.Column="0" Text="Create Team"
+                    FontFamily="MontserratSemiBold" FontSize="15"
+                    BackgroundColor="{StaticResource PrimaryOrange}"
+                    TextColor="White"
+                    HeightRequest="50" CornerRadius="10"
+                    Command="{Binding SaveTeamCommand}"/>
+            <Button Grid.Column="1" Text="Cancel"
+                    FontFamily="MontserratSemiBold" FontSize="15"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource LightGray}"
+                    BorderColor="{StaticResource LightGray}"
+                    BorderWidth="1.5"
+                    HeightRequest="50" CornerRadius="10"
+                    Command="{Binding CancelCommand}"/>
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.SelectTeamPage"
+             x:Name="PageRoot"
+             Title="Select Team"
+             BackgroundColor="{StaticResource DarkBlue}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, *, Auto" Padding="28,24">
+
+        <!-- Header -->
+        <VerticalStackLayout Spacing="0" Margin="0,0,0,28">
+            <Label Text="WELCOME" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,4"/>
+            <Label Text="Select Your Team" FontFamily="MontserratSemiBold" FontSize="30"
+                   TextColor="White" Margin="0,0,0,8"/>
+            <Label Text="Choose a team to manage or create a new one."
+                   FontFamily="Montserrat" FontSize="14"
+                   TextColor="{StaticResource LightBlue}" Opacity="0.7"/>
+        </VerticalStackLayout>
+
+        <!-- Teams List -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding UserTeams}">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"
+                                     Spacing="12">
+                    <Label Text="No teams yet" FontFamily="MontserratSemiBold"
+                           FontSize="20" TextColor="White" HorizontalOptions="Center"/>
+                    <Label Text="Create your first team below."
+                           FontFamily="Montserrat" FontSize="14"
+                           TextColor="{StaticResource LightBlue}" Opacity="0.7"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                               BackgroundColor="Red"
+                               Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.DeleteTeamCommand}"
+                               CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border BackgroundColor="White" Padding="20,16"
+                    StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="*, Auto">
+
+                                <VerticalStackLayout VerticalOptions="Center" Spacing="3">
+                                    <Label Text="{Binding Name}"
+                               FontFamily="MontserratSemiBold" FontSize="18"
+                               TextColor="{StaticResource DarkGray}"/>
+                                    <Label Text="Tap to manage"
+                               FontFamily="Montserrat" FontSize="12"
+                               TextColor="{StaticResource Gray}"/>
+                                </VerticalStackLayout>
+
+                                <Border Grid.Column="1"
+                            BackgroundColor="{StaticResource AccentBlue}"
+                            Padding="14,0" HeightRequest="38"
+                            StrokeThickness="0" VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="Select" FontFamily="MontserratSemiBold"
+                               FontSize="13" TextColor="White"
+                               VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.SelectTeamCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Border>
+
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.SelectTeamCommand}"
+                        CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Buttons -->
+        <VerticalStackLayout Grid.Row="2" Spacing="12" Margin="0,24,0,0">
+
+            <Button Text="+ Create New Team"
+                    FontFamily="MontserratSemiBold" FontSize="15"
+                    BackgroundColor="{StaticResource PrimaryOrange}"
+                    TextColor="White"
+                    HeightRequest="50" CornerRadius="10"
+                    Command="{Binding GoToAddTeamCommand}"/>
+
+            <Button Text="Logout"
+                    FontFamily="MontserratSemiBold" FontSize="15"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource LightGray}"
+                    BorderColor="{StaticResource LightGray}"
+                    BorderWidth="1.5"
+                    HeightRequest="50" CornerRadius="10"
+                    Command="{Binding LogoutCommand}"/>
+
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>

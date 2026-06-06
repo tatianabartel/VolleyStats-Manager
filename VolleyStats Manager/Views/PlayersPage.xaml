@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.PlayersPage"
+             x:Name="PageRoot"
+             Title="Team Players"
+             BackgroundColor="{StaticResource DarkBlue}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, *" Padding="28,24">
+
+        <!-- Header -->
+        <VerticalStackLayout Spacing="0" Margin="0,0,0,24">
+            <Label Text="PLAYERS" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,4"/>
+            <Grid ColumnDefinitions="*, Auto">
+                <Label Text="Team Players" FontFamily="MontserratSemiBold" FontSize="30"
+                       TextColor="White" VerticalOptions="Center"/>
+                <Button Grid.Column="1" Text="+ Add Player"
+                        FontFamily="MontserratSemiBold" FontSize="13"
+                        BackgroundColor="{StaticResource PrimaryOrange}"
+                        TextColor="White"
+                        Padding="18,0" HeightRequest="38" CornerRadius="8"
+                        VerticalOptions="Center"
+                        Command="{Binding GoToAddPlayerCommand}"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- List -->
+        <RefreshView Grid.Row="1"
+                     Command="{Binding LoadPlayersCommand}"
+                     IsRefreshing="{Binding IsBusy}">
+            <CollectionView ItemsSource="{Binding Players}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.DeletePlayerCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Border BackgroundColor="White" Padding="18,14"
+                                    StrokeThickness="0" Stroke="Transparent">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="56, *, Auto">
+
+                                    <!-- Jersey Number Circle -->
+                                    <Border BackgroundColor="{StaticResource DarkBlue}"
+                                            WidthRequest="46" HeightRequest="46"
+                                            VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="23"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding Number}"
+                                               FontFamily="MontserratSemiBold" FontSize="16"
+                                               TextColor="White"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Border>
+
+                                    <!-- Name + Position -->
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center"
+                                                         Margin="14,0" Spacing="2">
+                                        <Label Text="{Binding FirstName}"
+                                               FontFamily="Montserrat" FontSize="12"
+                                               TextColor="{StaticResource Gray}"/>
+                                        <Label Text="{Binding LastName}"
+                                               FontFamily="MontserratSemiBold" FontSize="17"
+                                               TextColor="{StaticResource DarkGray}"/>
+                                        <Border BackgroundColor="{StaticResource AccentBlue}"
+                                                Padding="8,3" HorizontalOptions="Start"
+                                                StrokeThickness="0" Margin="0,4,0,0">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="5"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding Position}"
+                                                   FontFamily="MontserratSemiBold" FontSize="11"
+                                                   TextColor="White"/>
+                                        </Border>
+                                    </VerticalStackLayout>
+
+                                    <!-- Actions -->
+                                    <HorizontalStackLayout Grid.Column="2" Spacing="8"
+                                                           VerticalOptions="Center">
+                                        <Button Text="Detail"
+                                                FontFamily="MontserratSemiBold" FontSize="13"
+                                                BackgroundColor="{StaticResource PrimaryOrange}"
+                                                TextColor="White"
+                                                WidthRequest="90" HeightRequest="36" CornerRadius="8"
+                                                Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                        <Button Text="Edit"
+                                                FontFamily="MontserratSemiBold" FontSize="13"
+                                                BackgroundColor="{StaticResource LightGray}"
+                                                TextColor="{StaticResource DarkGray}"
+                                                WidthRequest="75" HeightRequest="36" CornerRadius="8"
+                                                Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.EditPlayerCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+    </Grid>
+</ContentPage>

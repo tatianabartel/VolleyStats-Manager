@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.PlayerDetailsPage"
+             x:Name="PageRoot"
+             Title="Player Details"
+             BackgroundColor="{StaticResource DarkBlue}"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,24" Spacing="0" MaximumWidthRequest="800">
+
+            <!-- Page Label + Add Stats button -->
+            <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,16">
+                <Label Text="PLAYER PROFILE" FontFamily="Montserrat" FontSize="12"
+                       TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                       VerticalOptions="Center"/>
+                <Button Grid.Column="1" Text="+ Add Stats"
+                        FontFamily="MontserratSemiBold" FontSize="13"
+                        BackgroundColor="{StaticResource AccentBlue}"
+                        TextColor="White"
+                        Padding="16,0" HeightRequest="38" CornerRadius="8"
+                        VerticalOptions="Center"
+                        Command="{Binding AddStatsCommand}"/>
+            </Grid>
+
+            <!-- Player Info Card -->
+            <Border BackgroundColor="White" Padding="24,20" Margin="0,0,0,28"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="72, *" ColumnSpacing="20">
+
+                    <!-- Jersey Number Circle -->
+                    <Border BackgroundColor="{StaticResource DarkBlue}"
+                            WidthRequest="64" HeightRequest="64"
+                            VerticalOptions="Center" HorizontalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="32"/>
+                        </Border.StrokeShape>
+                        <Label Text="{Binding Player.Number}"
+                               FontFamily="MontserratSemiBold" FontSize="22"
+                               TextColor="White"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+
+                    <!-- Name + Position -->
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                        <Label Text="{Binding Player.FirstName}"
+                               FontFamily="Montserrat" FontSize="14"
+                               TextColor="{StaticResource Gray}"/>
+                        <Label Text="{Binding Player.LastName}"
+                               FontFamily="MontserratSemiBold" FontSize="26"
+                               TextColor="{StaticResource DarkGray}"/>
+                        <Border BackgroundColor="{StaticResource AccentBlue}"
+                                Padding="10,4" HorizontalOptions="Start"
+                                StrokeThickness="0" Margin="0,4,0,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="6"/>
+                            </Border.StrokeShape>
+                            <Label Text="{Binding Player.Position}"
+                                   FontFamily="MontserratSemiBold" FontSize="12"
+                                   TextColor="White"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                </Grid>
+            </Border>
+
+            <!-- Stats Section Header -->
+            <Label Text="MATCH STATISTICS" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,12"/>
+
+            <!-- Stats List -->
+            <CollectionView ItemsSource="{Binding Stats}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BackgroundColor="White" Padding="20,16"
+                                StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="12">
+
+                                <!-- Match label + Edit -->
+                                <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="10">
+                                    <VerticalStackLayout Spacing="2">
+                                        <Label Text="{Binding Match.Opponent}"
+                                               FontFamily="MontserratSemiBold" FontSize="15"
+                                               TextColor="{StaticResource DarkGray}"/>
+                                        <Label Text="{Binding Match.Date, StringFormat='{0:dd.MM.yyyy}'}"
+                                               FontFamily="Montserrat" FontSize="12"
+                                               TextColor="{StaticResource Gray}"/>
+                                    </VerticalStackLayout>
+                                    <Button Grid.Column="1" Text="Edit"
+                                            FontFamily="MontserratSemiBold" FontSize="12"
+                                            BackgroundColor="{StaticResource LightGray}"
+                                            TextColor="{StaticResource DarkGray}"
+                                            WidthRequest="70" HeightRequest="32" CornerRadius="6"
+                                            VerticalOptions="Center"
+                                            Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.EditStatsCommand}"
+                                            CommandParameter="{Binding Id}"/>
+                                    <Button Grid.Column="2" Text="Delete"
+                                            FontFamily="MontserratSemiBold" FontSize="12"
+                                            BackgroundColor="Transparent"
+                                            TextColor="Red"
+                                            BorderColor="Red" BorderWidth="1.5"
+                                            WidthRequest="70" HeightRequest="32" CornerRadius="6"
+                                            VerticalOptions="Center"
+                                            Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.DeleteStatsCommand}"
+                                            CommandParameter="{Binding Id}"/>
+                                </Grid>
+
+                                <BoxView HeightRequest="1" Color="{StaticResource LightGray}"/>
+
+                                <!-- Stats Row -->
+                                <Grid ColumnDefinitions="*, *, *, *, *">
+
+                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                                        <Label Text="{Binding PointsScored}"
+                                               FontFamily="MontserratSemiBold" FontSize="22"
+                                               TextColor="{StaticResource DarkOrange}"
+                                               HorizontalOptions="Center"/>
+                                        <Label Text="PTS" FontFamily="Montserrat" FontSize="11"
+                                               TextColor="{StaticResource Gray}"
+                                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="4">
+                                        <Label Text="{Binding Blocks}"
+                                               FontFamily="MontserratSemiBold" FontSize="22"
+                                               TextColor="{StaticResource DarkGray}"
+                                               HorizontalOptions="Center"/>
+                                        <Label Text="BLK" FontFamily="Montserrat" FontSize="11"
+                                               TextColor="{StaticResource Gray}"
+                                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="4">
+                                        <Label Text="{Binding Aces}"
+                                               FontFamily="MontserratSemiBold" FontSize="22"
+                                               TextColor="{StaticResource DarkGray}"
+                                               HorizontalOptions="Center"/>
+                                        <Label Text="ACE" FontFamily="Montserrat" FontSize="11"
+                                               TextColor="{StaticResource Gray}"
+                                               CharacterSpacing="1" HorizontalOptions="Center"/>        
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="4">
+                                        <Label Text="{Binding Serves}"
+                                               FontFamily="MontserratSemiBold" FontSize="22"
+                                               TextColor="{StaticResource DarkGray}"
+                                               HorizontalOptions="Center"/>
+                                        <Label Text="SRV" FontFamily="Montserrat" FontSize="11"
+                                               TextColor="{StaticResource Gray}"
+                                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="4" HorizontalOptions="Center" Spacing="4">
+                                        <Label Text="{Binding Errors}"
+                                               FontFamily="MontserratSemiBold" FontSize="22"
+                                               TextColor="Red"
+                                               HorizontalOptions="Center"/>
+                                        <Label Text="ERR" FontFamily="Montserrat" FontSize="11"
+                                               TextColor="Red" Opacity="0.7"
+                                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                                    </VerticalStackLayout>
+
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

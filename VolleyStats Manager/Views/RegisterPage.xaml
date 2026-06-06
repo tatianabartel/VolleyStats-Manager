@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.RegisterPage"
+             Title="RegisterPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid ColumnDefinitions="*" RowDefinitions="*" BackgroundColor="{StaticResource DarkBlue}">
+        <Border BackgroundColor="{StaticResource White}"
+                Padding="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="400"
+                StrokeThickness="1">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Spacing="15">
+                <Image Source="volleystats_logo.png"
+                       Aspect="AspectFill"
+                       HeightRequest="120"
+                       WidthRequest="120" />
+
+                <Label Text="CREATE YOUR ACCOUNT" 
+                       FontSize="20"
+                       FontFamily="MontserratBold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource PrimaryBlue}"/>
+
+                <Entry Placeholder="Username"
+                       Text="{Binding UserName}"/>
+
+                <Entry Placeholder="Password" 
+                       IsPassword="True"
+                       Text="{Binding Password}"/>
+
+                <Entry Placeholder="Confirm Password" 
+                       IsPassword="True"
+                       Text="{Binding ConfirmPassword}"/>
+
+                <Button Text="Register" 
+                        BackgroundColor="{StaticResource PrimaryOrange}"
+                        Command="{Binding RegisterCommand}"/>
+
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Label Text="Already have an account? "
+                           TextColor="{StaticResource Gray}"/>
+
+                    <Label Text="Login"
+                           TextColor="{StaticResource PrimaryOrange}"
+                           FontAttributes="Bold"
+                           TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToLoginPageCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="Red"
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding IsErrorVisible}" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

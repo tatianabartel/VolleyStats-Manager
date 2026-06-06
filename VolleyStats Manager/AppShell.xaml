@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="VolleyStats_Manager.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:VolleyStats_Manager"
+    xmlns:views="clr-namespace:VolleyStats_Manager.Views"
+    Title="VolleyStats Manager"
+    FlyoutBehavior="Flyout">
+
+    <!-- Flyout Header -->
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout Padding="20,30,20,20" BackgroundColor="{StaticResource DarkBlue}">
+            <Label Text="VolleyStats" FontFamily="MontserratSemiBold"
+                   FontSize="22" TextColor="White"/>
+            <Label Text="Manager" FontFamily="Montserrat"
+                   FontSize="14" TextColor="{StaticResource LightBlue}"/>
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+    <ShellContent Title="Login"
+                  ContentTemplate="{DataTemplate views:LoginPage}"
+                  Route="LoginPage"
+                  FlyoutItemIsVisible="False"/>
+
+    <ShellContent Title="Register"
+                  ContentTemplate="{DataTemplate views:RegisterPage}"
+                  Route="RegisterPage"
+                  FlyoutItemIsVisible="False"/>
+
+    <ShellContent Title="Select Team"
+                  ContentTemplate="{DataTemplate views:SelectTeamPage}"
+                  Route="SelectTeamPage"
+                  FlyoutItemIsVisible="False"/>
+
+    <FlyoutItem Title="Dashboard" >
+        <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="MainPage"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Matches">
+        <ShellContent ContentTemplate="{DataTemplate views:MatchesPage}" Route="MatchesPage"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Players">
+        <ShellContent ContentTemplate="{DataTemplate views:PlayersPage}" Route="PlayersPage"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Statistics">
+        <ShellContent ContentTemplate="{DataTemplate views:TeamStatisticsPage}" Route="TeamStatisticsPage"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Import / Export">
+        <ShellContent ContentTemplate="{DataTemplate views:ImportExportPage}" Route="ImportExportPage"/>
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout Padding="20,16" BackgroundColor="{StaticResource DarkBlue}">
+            <BoxView HeightRequest="1" Color="#2A3F8F" Margin="0,0,0,16"/>
+
+            <Label Text="{Binding CurrentTeamName}"
+               FontFamily="Montserrat" FontSize="12"
+               TextColor="{StaticResource LightBlue}"
+               Margin="0,0,0,8"/>
+
+            <Button Text="Change Team"
+                FontFamily="MontserratSemiBold" FontSize="14"
+                BackgroundColor="Transparent"
+                TextColor="{StaticResource LightBlue}"
+                BorderColor="{StaticResource LightBlue}"
+                BorderWidth="1.5"
+                HeightRequest="44" CornerRadius="8"
+                Margin="0,0,0,8"
+                Clicked="OnChangeTeamClicked"/>
+
+            <Button Text="Logout"
+                FontFamily="MontserratSemiBold" FontSize="14"
+                BackgroundColor="Transparent"
+                TextColor="{StaticResource LightGray}"
+                BorderColor="{StaticResource LightGray}"
+                BorderWidth="1.5"
+                HeightRequest="44" CornerRadius="8"
+                Clicked="OnLogoutClicked"/>
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
+
+</Shell>

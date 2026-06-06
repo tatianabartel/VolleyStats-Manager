@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.ImportExportPage"
+             Title="Import / Export"
+             BackgroundColor="{StaticResource DarkBlue}"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,24" Spacing="0" MaximumWidthRequest="800">
+
+            <!-- Header -->
+            <Label Text="DATA MANAGEMENT" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,4"/>
+            <Label Text="Import / Export" FontFamily="MontserratSemiBold" FontSize="30"
+                   TextColor="White" Margin="0,0,0,28"/>
+
+            <!-- EXPORT Section -->
+            <Label Text="EXPORT" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,12"/>
+
+            <Border BackgroundColor="White" Padding="20,18" Margin="0,0,0,28"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="16">
+
+                    <Label Text="Export all team data — players, matches and statistics — as a JSON file."
+                           FontFamily="Montserrat" FontSize="14"
+                           TextColor="{StaticResource Gray}"/>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="EXPORT DATA" FontFamily="MontserratSemiBold" FontSize="11"
+                               TextColor="{StaticResource AccentBlue}" CharacterSpacing="1.5"/>
+                        <Picker ItemsSource="{Binding ExportOptions}"
+                                SelectedItem="{Binding SelectedExportOption}"
+                                BackgroundColor="Transparent"
+                                TextColor="{StaticResource DarkGray}"
+                                FontFamily="MontserratSemiBold"
+                                FontSize="16"
+                                Title="Select data to export"
+                                TitleColor="{StaticResource Gray}"/>
+                        <BoxView HeightRequest="1.5" Color="{StaticResource LightGray}"/>
+                    </VerticalStackLayout>
+
+                    <Button Text="Export as JSON"
+                            FontFamily="MontserratSemiBold" FontSize="15"
+                            BackgroundColor="{StaticResource PrimaryOrange}"
+                            TextColor="White"
+                            HeightRequest="50" CornerRadius="10"
+                            Command="{Binding ExportCommand}"/>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- IMPORT Section -->
+            <Label Text="IMPORT" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,12"/>
+
+            <Border BackgroundColor="White" Padding="20,18" Margin="0,0,0,30"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="16">
+
+                    <!-- Warning -->
+                    <Border BackgroundColor="{StaticResource DarkBlue}" Padding="14,10"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Label Text="⚠  Importing will add new records. Existing data will not be overwritten."
+                               FontFamily="Montserrat" FontSize="13"
+                               TextColor="{StaticResource LightBlue}"/>
+                    </Border>
+
+                    <!-- File picker -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="SELECT JSON FILE" FontFamily="MontserratSemiBold" FontSize="11"
+                               TextColor="{StaticResource AccentBlue}" CharacterSpacing="1.5"/>
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                            <Border BackgroundColor="{StaticResource LightGray}"
+                                    Padding="14,12" StrokeThickness="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Label Text="{Binding SelectedFileName}"
+                                       FontFamily="Montserrat" FontSize="14"
+                                       TextColor="{StaticResource Gray}"/>
+                            </Border>
+                            <Button Grid.Column="1" Text="Browse"
+                                    FontFamily="MontserratSemiBold" FontSize="13"
+                                    BackgroundColor="{StaticResource AccentBlue}"
+                                    TextColor="White"
+                                    Padding="16,0" HeightRequest="46" CornerRadius="8"
+                                    Command="{Binding PickFileCommand}"/>
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <!-- Result message -->
+                    <Border BackgroundColor="{StaticResource LightGray}" Padding="14,10"
+                            StrokeThickness="0" IsVisible="{Binding HasImportResult}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Label Text="{Binding ImportResultMessage}"
+                               FontFamily="MontserratSemiBold" FontSize="13"
+                               TextColor="{StaticResource AccentBlue}"/>
+                    </Border>
+
+                    <Button Text="Import JSON"
+                            FontFamily="MontserratSemiBold" FontSize="15"
+                            BackgroundColor="{StaticResource PrimaryBlue}"
+                            TextColor="White"
+                            HeightRequest="50" CornerRadius="10"
+                            Command="{Binding ImportCommand}"
+                            IsEnabled="{Binding HasSelectedFile}"/>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

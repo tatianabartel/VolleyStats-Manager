@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.AddPlayerPage"
+             Title="Add Player"
+             BackgroundColor="{StaticResource DarkBlue}"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,24" Spacing="0" MaximumWidthRequest="800">
+
+            <!-- Page Header -->
+            <Label Text="NEW PLAYER" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,4"/>
+            <Label Text="Player Information" FontFamily="MontserratSemiBold" FontSize="30"
+                   TextColor="White" Margin="0,0,0,28"/>
+
+            <!-- Name Card -->
+            <Border BackgroundColor="White" Padding="20,16" Margin="0,0,0,12"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="16">
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="FIRST NAME" FontFamily="MontserratSemiBold" FontSize="11"
+                               TextColor="{StaticResource AccentBlue}" CharacterSpacing="1.5"/>
+                        <Entry Text="{Binding FirstName}"
+                               Placeholder="Enter first name"
+                               PlaceholderColor="{StaticResource Gray}"
+                               BackgroundColor="Transparent"
+                               TextColor="{StaticResource DarkGray}"
+                               FontFamily="MontserratSemiBold"
+                               FontSize="17"/>
+                        <BoxView HeightRequest="1.5" Color="{StaticResource LightGray}"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="LAST NAME" FontFamily="MontserratSemiBold" FontSize="11"
+                               TextColor="{StaticResource AccentBlue}" CharacterSpacing="1.5"/>
+                        <Entry Text="{Binding LastName}"
+                               Placeholder="Enter last name"
+                               PlaceholderColor="{StaticResource Gray}"
+                               BackgroundColor="Transparent"
+                               TextColor="{StaticResource DarkGray}"
+                               FontFamily="MontserratSemiBold"
+                               FontSize="17"/>
+                        <BoxView HeightRequest="1.5" Color="{StaticResource LightGray}"/>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Number + Position Row -->
+            <Grid ColumnDefinitions="140, *" ColumnSpacing="12" Margin="0,0,0,28">
+
+                <!-- Jersey Number -->
+                <Border BackgroundColor="White" Padding="20,16" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="JERSEY #" FontFamily="MontserratSemiBold" FontSize="11"
+                               TextColor="{StaticResource AccentBlue}" CharacterSpacing="1.5"/>
+                        <Entry Text="{Binding Number}"
+                               Placeholder="00"
+                               PlaceholderColor="{StaticResource LightGray}"
+                               Keyboard="Numeric"
+                               BackgroundColor="Transparent"
+                               TextColor="{StaticResource DarkOrange}"
+                               FontFamily="MontserratSemiBold"
+                               FontSize="28"
+                               HorizontalOptions="Center"
+                               TextChanged="OnIntegerInput"/>
+                        <BoxView HeightRequest="1.5" Color="{StaticResource LightGray}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Position -->
+                <Border Grid.Column="1" BackgroundColor="White" Padding="20,16" StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="POSITION" FontFamily="MontserratSemiBold" FontSize="11"
+                               TextColor="{StaticResource AccentBlue}" CharacterSpacing="1.5"/>
+                        <Picker ItemsSource="{Binding Positions}"
+                                SelectedItem="{Binding Position}"
+                                BackgroundColor="Transparent"
+                                TextColor="{StaticResource DarkGray}"
+                                FontFamily="MontserratSemiBold"
+                                FontSize="16"
+                                Title="Select position"
+                                TitleColor="{StaticResource Gray}"/>
+                        <BoxView HeightRequest="1.5" Color="{StaticResource LightGray}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Action Buttons -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="14" Margin="0,0,0,30">
+                <Button Grid.Column="0" Text="Save Player"
+                        FontFamily="MontserratSemiBold" FontSize="15"
+                        BackgroundColor="{StaticResource PrimaryOrange}"
+                        TextColor="White"
+                        HeightRequest="50" CornerRadius="10"
+                        Command="{Binding SavePlayerCommand}"/>
+                <Button Grid.Column="1" Text="Cancel"
+                        FontFamily="MontserratSemiBold" FontSize="15"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource LightGray}"
+                        BorderColor="{StaticResource LightGray}"
+                        BorderWidth="1.5"
+                        HeightRequest="50" CornerRadius="10"
+                        Command="{Binding CancelCommand}"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

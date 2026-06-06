@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VolleyStats_Manager.Views.MatchDetailsPage"
+             Title="Match Detail"
+             BackgroundColor="{StaticResource DarkBlue}"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,24" Spacing="0" MaximumWidthRequest="800">
+
+            <!-- Header -->
+            <Label Text="MATCH DETAIL" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,4"/>
+
+            <!-- Opponent + Date -->
+            <Label Text="{Binding Match.Opponent}" FontFamily="MontserratSemiBold"
+                   FontSize="32" TextColor="White" Margin="0,0,0,4"/>
+            <Label Text="{Binding Match.MatchDate, StringFormat='{0:dd.MM.yyyy}'}"
+                   FontFamily="Montserrat" FontSize="14"
+                   TextColor="{StaticResource LightBlue}" Margin="0,0,0,28"/>
+
+            <!-- Sets Section -->
+            <Label Text="SETS" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,12"/>
+
+            <Border BackgroundColor="White" Padding="20,16" Margin="0,0,0,28"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="0">
+
+                    <!-- Sets Header -->
+                    <Grid ColumnDefinitions="40, *, *" Padding="4,0,4,10">
+                        <Label Text="#" FontFamily="MontserratSemiBold" FontSize="11"
+                               TextColor="{StaticResource Gray}" CharacterSpacing="1"
+                               HorizontalOptions="Center"/>
+                        <Label Grid.Column="1" Text="US" FontFamily="MontserratSemiBold"
+                               FontSize="11" TextColor="{StaticResource Gray}"
+                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                        <Label Grid.Column="2" Text="OPPONENT" FontFamily="MontserratSemiBold"
+                               FontSize="11" TextColor="{StaticResource Gray}"
+                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{StaticResource LightGray}" Margin="0,0,0,8"/>
+
+                    <CollectionView ItemsSource="{Binding Match.Sets}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="40, *, *" Padding="4,10">
+                                    <Label Text="{Binding SetNumber}"
+                                           FontFamily="MontserratSemiBold" FontSize="14"
+                                           TextColor="{StaticResource Gray}"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Grid.Column="1" Text="{Binding OurPoints}"
+                                           FontFamily="MontserratSemiBold" FontSize="22"
+                                           TextColor="{StaticResource DarkOrange}"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Grid.Column="2" Text="{Binding OpponentPoints}"
+                                           FontFamily="MontserratSemiBold" FontSize="22"
+                                           TextColor="{StaticResource DarkGray}"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Player Performances Section -->
+            <Label Text="PERFORMANCES" FontFamily="Montserrat" FontSize="12"
+                   TextColor="{StaticResource LightBlue}" CharacterSpacing="2.5"
+                   Margin="0,0,0,12"/>
+
+            <Border BackgroundColor="White" Padding="20,16" Margin="0,0,0,30"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="0">
+
+                    <!-- Stats Header -->
+                    <Grid ColumnDefinitions="*, 60, 60, 60, 60" Padding="4,0,4,10">
+                        <Label Text="Player" FontFamily="MontserratSemiBold" FontSize="11"
+                               TextColor="{StaticResource Gray}" CharacterSpacing="1"/>
+                        <Label Grid.Column="1" Text="PTS" FontFamily="MontserratSemiBold"
+                               FontSize="11" TextColor="{StaticResource Gray}"
+                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                        <Label Grid.Column="2" Text="ACE" FontFamily="MontserratSemiBold"
+                               FontSize="11" TextColor="{StaticResource Gray}"
+                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                        <Label Grid.Column="3" Text="BLK" FontFamily="MontserratSemiBold"
+                               FontSize="11" TextColor="{StaticResource Gray}"
+                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                        <Label Grid.Column="4" Text="ERR" FontFamily="MontserratSemiBold"
+                               FontSize="11" TextColor="{StaticResource Gray}"
+                               CharacterSpacing="1" HorizontalOptions="Center"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="{StaticResource LightGray}" Margin="0,0,0,4"/>
+
+                    <CollectionView ItemsSource="{Binding Players}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="*, 60, 60, 60, 60" Padding="4,10">
+                                    <Label Text="{Binding PlayerName}"
+                                           FontFamily="MontserratSemiBold" FontSize="15"
+                                           TextColor="{StaticResource DarkGray}"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1" Text="{Binding Points}"
+                                           FontFamily="MontserratSemiBold" FontSize="16"
+                                           TextColor="{StaticResource DarkOrange}"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Grid.Column="2" Text="{Binding Aces}"
+                                           FontFamily="Montserrat" FontSize="15"
+                                           TextColor="{StaticResource DarkGray}"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Grid.Column="3" Text="{Binding Blocks}"
+                                           FontFamily="Montserrat" FontSize="15"
+                                           TextColor="{StaticResource DarkGray}"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Grid.Column="4" Text="{Binding Errors}"
+                                           FontFamily="Montserrat" FontSize="15"
+                                           TextColor="Red"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
